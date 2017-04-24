@@ -1,29 +1,15 @@
 package com.example.imagesgallery.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * Created by hyemi on 2017. 4. 23..
  */
-
+@Getter
+@AllArgsConstructor
 public class ImageDto {
     private String host;
     private String link;
     private String src;
-
-    public ImageDto(String host, String link, String src) {
-        this.host = host;
-        this.link = link;
-        this.src = src;
-    }
-
-    public String getHost() {
-        return  host;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public String getSrc() {
-        return src;
-    }
 }
