@@ -1,6 +1,6 @@
 package com.example.imagesgallery.network;
 
-import com.example.imagesgallery.Util;
+import com.example.imagesgallery.util.Util;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

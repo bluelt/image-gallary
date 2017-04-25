@@ -1,11 +1,13 @@
-package com.example.imagesgallery;
+package com.example.imagesgallery.ui;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.imagesgallery.R;
 
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,5 +19,10 @@ public class MainActivity extends AppCompatActivity {
             transaction.replace(R.id.imageFragment, fragment);
             transaction.commit();
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

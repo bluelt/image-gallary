@@ -35,11 +35,10 @@ public class HttpAsyncTask extends AsyncTask<Call, Void, Response<ResponseBody>>
 
     @Override
     protected void onPostExecute(Response<ResponseBody> response) {
-        if (response == null && !response.isSuccessful()) {
+        if (response == null || !response.isSuccessful()) {
             return;
         }
 
-        Log.e("**onSuccess**", response.body().source().toString());
         InputStream stream = response.body().byteStream();
         if(listener != null) {
             listener.onSuccess(stream);

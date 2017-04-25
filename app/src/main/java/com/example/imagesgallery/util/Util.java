@@ -1,4 +1,4 @@
-package com.example.imagesgallery;
+package com.example.imagesgallery.util;
 
 import com.example.imagesgallery.Parser.GettyImageParser;
 import com.example.imagesgallery.Parser.ImageParser;

@@ -12,6 +12,8 @@ import android.widget.ImageView;
 
 import com.example.imagesgallery.R;
 import com.example.imagesgallery.dto.ImageDto;
+import com.example.imagesgallery.imageLoader.ImageCacheListener;
+import com.example.imagesgallery.imageLoader.ImageService;
 import com.example.imagesgallery.network.HttpAsyncTask;
 import com.example.imagesgallery.network.HttpImageApi;
 import com.example.imagesgallery.network.HttpResponseListener;
@@ -43,10 +45,11 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder viewHolder = null;
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_image_item, parent, false);
+        RecyclerView.ViewHolder viewHolder;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_image_item, null);
 
-        return new ImageRecyclerAdapter.ImageHolder(view);
+        viewHolder = new ImageRecyclerAdapter.ImageHolder(view);
+        return viewHolder;
     }
 
     @Override
@@ -56,17 +59,13 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
             return;
         }
 
-        // FIXME: 2017. 4. 23. //new callback return bitmap //loader구현
-        HttpImageApi ImageApi = HttpImageApi.retrofit.create(HttpImageApi.class);
-
-        final Call<ResponseBody> call = ImageApi.getImage(item.getSrc());
-        new HttpAsyncTask(new HttpResponseListener() {
+        ImageService service = new ImageService(context, new ImageCacheListener() {
             @Override
-            public void onSuccess(InputStream response) {
-                Bitmap bitmap = BitmapFactory.decodeStream(response);
-                ((ImageRecyclerAdapter.ImageHolder)holder).imageView.setImageBitmap(bitmap);
+            public void loadBitmap(Bitmap bitmap) {
+                ((ImageHolder)holder).imageView.setImageBitmap(bitmap);
             }
-        }).execute(call);
+        });
+        service.loadBitmap(item.getSrc());
         //String url = item.getHost() + item.getSrc();
         //Glide.with(context).load(url).into(((GettyImageHolder)holder).imageView);
     }
